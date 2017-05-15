@@ -25,20 +25,29 @@ SYNOPSIS
       );
 
 DESCRIPTION
-    Provides a quick and easy way to send email using the Mailgun API.
+    Provides a quick and easy way to send email using the Mailgun API with
+    support for multiple user agents.
 
 OPTIONS
-    Mojolicious::Plusin::Mailgun can be provided a hash of mailgun sites
-    with api key and domain, or you can read them directly from the
-    settings.
+    Mojolicious::Plugin::Mailgun can be provided a hash of mailgun sites
+    with api key and domain, or it can read them directly from
+    $c->config->{mailgun} if not provided at load time.
 
 HELPERS
     Mojolicious::Plugin::Mailgun implements one helper.
 
-  mailgun->send <$site>, <$post_options>, <$cb>
+  mailgun->send <$site>, <\%post_options>, <$cb>
+    Send a mail with the mailgun API. This is just a thin wrapper around
+    Mojo::UserAgent to handle authentication settings. See the mailgun
+    sending documentation for more information about the supported arguments
+    to the post_options hash. This API can only be used non-blocking, so the
+    callback is required.
+
+    <https://documentation.mailgun.com/api-sending.html#sending>
+
 METHODS
-    Mojolicious::Plugin::SMS inherits all methods from Mojolicious::Plugin
-    and implements the following new ones.
+    Mojolicious::Plugin::Mailgun inherits all methods from
+    Mojolicious::Plugin and implements the following new ones.
 
   "register"
     $plugin->register;
@@ -46,7 +55,7 @@ METHODS
     Register plugin hooks and helpers in Mojolicious application.
 
 SEE ALSO
-    Mojolicious, SMS::Send, SMS::Send::Test.
+    Mojolicious
 
 AUTHOR
     Marcus Ramberg <mramberg@cpan.org>
