@@ -3,7 +3,7 @@ package Mojolicious::Plugin::Mailgun;
 use Mojo::Base 'Mojolicious::Plugin';
 use Carp 'croak';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 has base_url => sub { Mojo::URL->new('https://api.mailgun.net/v3/'); };
 has ua       => sub { Mojo::UserAgent->new(); };
@@ -41,7 +41,6 @@ sub _test_mode {
 
 1;
 
-=HEAD1 NAME
 =head1 NAME
 
 Mojolicious::Plugin::Mailgun - Easy Email sending with mailgun
