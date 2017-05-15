@@ -17,7 +17,8 @@ sub register {
   $app->helper(
     'mailgun.send' => sub {
       my ($c, $site, $mail, $cb) = @_;
-      croak "No mailgun config for $site" unless my $config = $self->config->{$site};
+      croak "No mailgun config for $site"
+        unless my $config = $self->config->{$site};
       my $url = $self->base_url->clone;
       $url->path->merge($config->{domain} . '/messages');
       $url->userinfo('api:' . $config->{api_key});
@@ -33,7 +34,8 @@ sub _test_mode {
   $app->routes->post(
     '/dummy/mail/*domain/messages' => sub {
       my $c = shift;
-      $c->render(json => {params => $c->req->params->to_hash, url => $c->req->url->to_abs});
+      $c->render(json =>
+          {params => $c->req->params->to_hash, url => $c->req->url->to_abs});
     }
   );
 }

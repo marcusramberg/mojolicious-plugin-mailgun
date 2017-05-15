@@ -1,26 +1,31 @@
 use Mojolicious::Lite;
-BEGIN {$ENV{MAILGUN_TEST}=1; };
+BEGIN { $ENV{MAILGUN_TEST} = 1; }
 
-plugin 'Mailgun', main => { domain => 'test.no', api_key=>123 };
+plugin 'Mailgun', main => {domain => 'test.no', api_key => 123};
 
 get '/' => sub {
-  my $self=shift;
+  my $self = shift;
 
-  $self->delay(sub {
-      my $delay=shift;
-  my $res=$self->mailgun->send(main => {subject=>'Test'},$delay->begin);
-  }, sub {
-    my ($delay, $tx)=@_;
-    $self->render(json=>$tx->result->json);
-  });
+  $self->delay(
+    sub {
+      my $delay = shift;
+      my $res
+        = $self->mailgun->send(main => {subject => 'Test'}, $delay->begin);
+    },
+    sub {
+      my ($delay, $tx) = @_;
+      $self->render(json => $tx->result->json);
+    }
+  );
 };
 
 use Test::More;
 use Test::Mojo;
 
-my $t=Test::Mojo->new;
+my $t = Test::Mojo->new;
 
-$t->get_ok('/',"Get testing")->status_is(200)->json_is('/params/subject','Test');
+$t->get_ok('/', "Get testing")->status_is(200)
+  ->json_is('/params/subject', 'Test');
 warn $t->tx->result->body;
 
 
