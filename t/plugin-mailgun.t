@@ -1,14 +1,14 @@
 use Mojolicious::Lite;
 BEGIN {$ENV{MAILGUN_TEST}=1; };
 
-plugin 'Mailgun';
+plugin 'Mailgun', main => { domain => 'test.no', api_key=>123 };
 
 get '/' => sub {
   my $self=shift;
 
   $self->delay(sub {
       my $delay=shift;
-  my $res=$self->mailgun->send({domain=>'test.no',apikey=>'123',subject=>'Test'},$delay->begin);
+  my $res=$self->mailgun->send(main => {subject=>'Test'},$delay->begin);
   }, sub {
     my ($delay, $tx)=@_;
     $self->render(json=>$tx->result->json);

@@ -3,6 +3,8 @@ package Mojolicious::Plugin::Mailgun;
 use Mojo::Base 'Mojolicious::Plugin';
 use Carp 'croak';
 
+our $VERSION = '0.01';
+
 has base_url => sub { Mojo::URL->new('https://api.mailgun.net/v3/'); };
 has ua       => sub { Mojo::UserAgent->new(); };
 has config   => sub { +{} };
