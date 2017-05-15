@@ -72,21 +72,26 @@ Mojolicious::Plugin::Mailgun - Easy Email sending with mailgun
 
 =head1 DESCRIPTION
 
-Provides a quick and easy way to send email using the Mailgun API.
+Provides a quick and easy way to send email using the Mailgun API with support for
+multiple user agents.
 
 =head1 OPTIONS
 
 L<Mojolicious::Plugin::Mailgun> can be provided a hash of mailgun sites with api key and domain, or
-you can read them directly from the settings.
+it can read them directly from $c->config->{mailgun} if not provided at load time.
 
 
 =head1 HELPERS
 
 L<Mojolicious::Plugin::Mailgun> implements one helper.
 
-=head2 mailgun->send <$site>, <$post_options>, <$cb>
+=head2 mailgun->send <$site>, <\%post_options>, <$cb>
 
+Send a mail with the mailgun API. This is just a thin wrapper around Mojo::UserAgent to handle authentication
+settings. See the mailgun sending documentation for more information about the supported arguments to the
+post_options hash. This API can only be used non-blocking, so the callback is required.
 
+L<https://documentation.mailgun.com/api-sending.html#sending>
 
 =head1 METHODS
 

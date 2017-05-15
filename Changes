@@ -1,5 +1,8 @@
 Revision history for perl distribution Mojolicious-Plugin-Mailgun
 
+0.03 Not Released
+ - Documentation improvements
+
 0.02 2017-05-15T15:48:05+0200
  - Fix stray pod.
 
