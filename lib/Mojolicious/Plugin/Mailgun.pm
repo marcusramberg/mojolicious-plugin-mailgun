@@ -76,7 +76,7 @@ Provides a quick and easy way to send email using the Mailgun API.
 
 =head1 OPTIONS
 
-L<Mojolicious::Plusin::Mailgun> can be provided a hash of mailgun sites with api key and domain, or
+L<Mojolicious::Plugin::Mailgun> can be provided a hash of mailgun sites with api key and domain, or
 you can read them directly from the settings.
 
 
@@ -90,7 +90,7 @@ L<Mojolicious::Plugin::Mailgun> implements one helper.
 
 =head1 METHODS
 
-L<Mojolicious::Plugin::SMS> inherits all methods from L<Mojolicious::Plugin>
+L<Mojolicious::Plugin::Mailgun> inherits all methods from L<Mojolicious::Plugin>
 and implements the following new ones.
 
 =head2 C<register>
@@ -101,7 +101,7 @@ Register plugin hooks and helpers in L<Mojolicious> application.
 
 =head1 SEE ALSO
 
-L<Mojolicious>, L<SMS::Send>, L<SMS::Send::Test>.
+L<Mojolicious>
 
 =head1 AUTHOR
 
