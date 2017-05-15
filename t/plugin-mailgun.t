@@ -26,7 +26,5 @@ my $t = Test::Mojo->new;
 
 $t->get_ok('/', "Get testing")->status_is(200)
   ->json_is('/params/subject', 'Test');
-warn $t->tx->result->body;
-
 
 done_testing;
