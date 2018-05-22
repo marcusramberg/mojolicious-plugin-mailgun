@@ -3,7 +3,7 @@ package Mojolicious::Plugin::Mailgun;
 use Mojo::Base 'Mojolicious::Plugin';
 use Carp 'croak';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 has base_url => sub { Mojo::URL->new('https://api.mailgun.net/v3/'); };
 has ua       => sub { Mojo::UserAgent->new(); };
@@ -19,13 +19,29 @@ sub register {
       my ($c, $site, $mail, $cb) = @_;
       croak "No mailgun config for $site"
         unless my $config = $self->config->{$site};
-      my $url = $self->base_url->clone;
-      $url->path->merge($config->{domain} . '/messages');
-      $url->userinfo('api:' . $config->{api_key});
+      my $url=$self->_make_url($config);
       $self->ua->post($url, form => $mail, $cb);
       return $c;
     }
   );
+  $app->helper(
+    'mailgun.send_p' => sub {
+      my ($c, $site, $mail) = @_;
+      croak "No mailgun config for $site"
+        unless my $config = $self->config->{$site};
+      my $url=$self->_make_url($config);
+      $self->ua->post_p($url, form => $mail);
+      return $c;
+    }
+  );
+}
+
+sub _make_url {
+    my ($self, $config)=@_;
+      my $url = $self->base_url->clone;
+      $url->path->merge($config->{domain} . '/messages');
+      $url->userinfo('api:' . $config->{api_key});
+      return $url;
 }
 
 sub _test_mode {
