@@ -3,7 +3,7 @@ package Mojolicious::Plugin::Mailgun;
 use Mojo::Base 'Mojolicious::Plugin';
 use Carp 'croak';
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 has base_url => sub { Mojo::URL->new('https://api.mailgun.net/v3/'); };
 has ua       => sub { Mojo::UserAgent->new(); };
@@ -30,8 +30,7 @@ sub register {
       croak "No mailgun config for $site"
         unless my $config = $self->config->{$site};
       my $url=$self->_make_url($config);
-      $self->ua->post_p($url, form => $mail);
-      return $c;
+      return $self->ua->post_p($url, form => $mail);
     }
   );
 }
