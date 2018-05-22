@@ -35,7 +35,7 @@ sub _test_mode {
     '/dummy/mail/*domain/messages' => sub {
       my $c = shift;
       $c->render(json =>
-          {params => $c->req->params->to_hash, url => $c->req->url->to_abs});
+          {id => 1, params => $c->req->params->to_hash, url => $c->req->url->to_abs});
     }
   );
 }
