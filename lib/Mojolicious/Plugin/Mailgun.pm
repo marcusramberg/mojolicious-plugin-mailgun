@@ -12,6 +12,7 @@ has config   => sub { +{} };
 sub register {
   my ($self, $app, $conf) = @_;
   $self->config(keys %$conf ? $conf : $app->config->{mailgun});
+  $app->ua->server->app($app);
   $self->_test_mode($app) if $ENV{MAILGUN_TEST} // $app->mode eq 'development';
   $self->base_url($conf->{base_url}) if $conf->{base_url};
   $app->helper(
