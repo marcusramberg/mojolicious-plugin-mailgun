@@ -1,6 +1,6 @@
 Revision history for perl distribution Mojolicious-Plugin-Mailgun
 
-0.09 Not Released
+0.09 2018-11-01T11:09:43+0100
 
  - Update test method to be compatible with Mojolicious 8.0
 
